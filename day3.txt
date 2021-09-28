@@ -1,0 +1,69 @@
+#include<iostream>
+using namespace std;
+class node{
+	public:
+	int data;
+	node *next;
+
+	node(int data){
+		this->data=data;
+		next=NULL;
+	}
+};
+
+node *takeInput(){
+
+int data;
+cin>>data;
+node *head=NULL;
+while(data!=-1){
+	node *newNode=new node(data);
+
+	if(head==NULL){
+		head=newNode;
+	}
+	else{
+		node *temp=head;
+		while(temp->next!=NULL){
+			temp=temp->next;
+		}
+		temp->next=newNode;
+	}
+	cin>>data;
+}
+	return head;
+}
+node* deleteLastNode(node *head){
+    if (head == NULL)
+        return NULL;
+
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+    node* second_last_node= head;
+    while (second_last_node->next->next != NULL)
+        second_last_node= second_last_node->next;
+
+    delete (second_last_node->next);
+
+    second_last_node->next = NULL;
+
+    return head;
+}
+void print(node *head){
+	node *temp=head;
+	while(temp!=NULL){
+		cout<<temp->data<<" ";
+		temp=temp->next;
+	}
+}
+int main(){
+	node *head=takeInput();
+	cout<<"before deleting last node "<<endl;
+	print(head);
+	cout<<endl;
+	deleteLastNode(head);
+	cout<<"after deleting last node "<<endl;
+	print(head);
+}
